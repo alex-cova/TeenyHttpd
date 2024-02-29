@@ -6,10 +6,7 @@ on:
       - master
   pull_request:
     types: [ opened, synchronize, reopened ]
-
-env:
-  AZURE_BLOB_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_BLOB_STORAGE_CONNECTION_STRING }}     
-
+   
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -42,7 +39,7 @@ jobs:
 
       - name: Upload to Azure Blob Storage
         uses: bacongobbler/azure-blob-storage-upload@v3.0.0
-        if: env.AZURE_BLOB_STORAGE_CONNECTION_STRING != null
+        if: secrets.AZURE_BLOB_STORAGE_CONNECTION_STRING != null
         with:
           source_dir: 'target/apidocs'
           container_name: '$web'
